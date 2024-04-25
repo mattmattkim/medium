@@ -1,7 +1,7 @@
 {
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "{some_instance_id}"
+    "instanceId": "{instanceId}"
   },
   "nodes": [
     {
@@ -15,13 +15,13 @@
           ]
         }
       },
-      "id": "04400fbc-1bf1-4d0f-9d7c-82d73dd4deaf",
+      "id": "54f98a44-f703-4759-8014-7e3d99d0926c",
       "name": "Schedule Trigger",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.1,
       "position": [
-        -2220,
-        1358
+        -2520,
+        818
       ]
     },
     {
@@ -31,39 +31,39 @@
         "width": 827.3071557661215,
         "color": 5
       },
-      "id": "920a677a-c6ad-4602-964a-6dbe5567b04f",
+      "id": "1515acd8-af48-4b8e-9b06-7b1cad664051",
       "name": "Sticky Note",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        1320,
-        2100
+        1020,
+        1560
       ]
     },
     {
       "parameters": {
         "jsCode": "const inputText = $input.first().json.arguments.message;\nconst formattedText = inputText.replace(/\\n/g, '<br>');\n\nreturn [{ json: { text: formattedText } }];\n"
       },
-      "id": "90b2cdc8-89b7-4ba7-b738-6e81b0d39587",
+      "id": "c824a467-4572-44da-9d8b-f296a3a2219c",
       "name": "Response Body",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1420,
-        2200
+        1120,
+        1660
       ]
     },
     {
       "parameters": {
         "html": "<!DOCTYPE html>\n\n<html>\n<head>\n  <meta charset=\"UTF-8\" />\n  <title>Customer Support</title>\n</head>\n<body>\n  <div class=\"container\">\n    <p>{{ $json.text }}</p>\n  </div>\n</body>\n</html>\n\n<style>\n.container {\n  background-color: #ffffff;\n  text-align: left;\n  padding: 16px;\n  border-radius: 8px;\n}\n\nh1 {\n  color: #ff6d5a;\n  font-size: 24px;\n  font-weight: bold;\n  padding: 8px;\n}\n\nh2 {\n  color: #909399;\n  font-size: 18px;\n  font-weight: bold;\n  padding: 8px;\n}\n</style>"
       },
-      "id": "8ca35eca-69e9-4815-b38a-5d751f80bcc6",
+      "id": "b124c0bb-82f7-45d6-b4dc-9cf5eb707c15",
       "name": "HTML",
       "type": "n8n-nodes-base.html",
       "typeVersion": 1.2,
       "position": [
-        1600,
-        2200
+        1300,
+        1660
       ]
     },
     {
@@ -77,13 +77,13 @@
         "message": "={{ $json.html }}",
         "options": {}
       },
-      "id": "4af26346-5965-4809-a6e7-d0cbac5172c9",
+      "id": "6c9b7160-fa6d-4a50-9da0-e2b3b3464358",
       "name": "Microsoft Outlook",
       "type": "n8n-nodes-base.microsoftOutlook",
       "typeVersion": 2,
       "position": [
-        1775,
-        2200
+        1475,
+        1660
       ],
       "credentials": {
         "microsoftOutlookOAuth2Api": {
@@ -132,13 +132,13 @@
           "timeout": 60000
         }
       },
-      "id": "7ea6f608-49cc-46bd-8658-de7d1c5f078e",
+      "id": "b98d027a-7d78-4b41-ae32-ce8f45a6e9cb",
       "name": "[OpenAI] Vision",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        2060,
-        1220
+        1760,
+        680
       ],
       "credentials": {
         "openAiApi": {
@@ -151,13 +151,13 @@
       "parameters": {
         "jsCode": "// Assuming 'binaryData' contains the binary data of the image\n// Convert binary data to a base64 string\n// const image = $input.first().json.photo_link;\nconst image = $input.first().json.data;\n\nlet contentText = `Act as a product defect detector for an e-commerce company that sells a variety of books. The user has sent you a photo of a defective product.\n\nRespond in JSON, refering to the following example:\n\n{\n  'isDefective': true\n  'reason': 'The book shows visible damage on the cover, it seems to be torn.'\n}\n`;\n\n// Constructing system message\nlet systemMsg = {\n  \"role\": \"system\",\n  \"content\": contentText\n};\n\nlet userMessage = $('Conversation').first().json.messages[0];\n\n// Constructing user message with the base64 encoded image\nlet visionMessage = {\n  \"role\": \"user\",\n  \"content\": [\n    {\n      \"type\": \"text\",\n      \"text\": \"Can you identify the defect as described earlier?\"\n    },\n    {\n      \"type\": \"image_url\",\n      \"image_url\": {\n        \"url\": `data:image/jpeg;base64,${image}`\n      }\n    }\n  ]\n};\n\n// Updating the return statement to include both messages\nconst messages = [];\nmessages.push(systemMsg);\nmessages.push(userMessage);\nmessages.push(visionMessage);\nreturn {messages};\n"
       },
-      "id": "0588e991-7a99-4265-8cd0-340c49b98928",
+      "id": "b0cb94fa-7ab6-49b6-bfa4-d76fb6c96b21",
       "name": "System Message (Vision)",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1840,
-        1220
+        1540,
+        680
       ]
     },
     {
@@ -167,13 +167,13 @@
           "encoding": "base64"
         }
       },
-      "id": "813118c0-4d17-446b-9d87-a651220ee467",
+      "id": "308e74d6-7e7b-4fcd-a14a-b4b6318744b8",
       "name": "Extract from File",
       "type": "n8n-nodes-base.extractFromFile",
       "typeVersion": 1,
       "position": [
-        1620,
-        1220
+        1320,
+        680
       ]
     },
     {
@@ -183,12 +183,12 @@
         "width": 1119.277563773595,
         "color": 5
       },
-      "id": "9c31c52f-9872-41e8-b619-db5036e3b792",
+      "id": "8f8bba2f-0ba6-46ff-8cbc-4543c6211038",
       "name": "Sticky Note1",
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        1320,
-        1100
+        1020,
+        560
       ],
       "typeVersion": 1
     },
@@ -196,26 +196,26 @@
       "parameters": {
         "jsCode": "const toolCallsRaw = $input.first().json.choices[0].message.content;\n\nconst toolCallsCleaned = toolCallsRaw.replace(/(\\r\\n|\\n|\\r)/gm, \"\").replace(/\\s+/g, \" \");\nconsole.log(\"toolCallsCleaned\",toolCallsCleaned);\nconst parsedArguments = JSON.parse(toolCallsCleaned);\nconsole.log(\"parsedArguments\",parsedArguments);\n\nconst isDefective= parsedArguments.isDefective;\nconst reason = parsedArguments.reason;\n\nreturn [\n  {\n    json: {\n      isDefective,\n      reason,\n    }\n  }\n];\n"
       },
-      "id": "952bc3c3-b86b-41d3-b3b1-12a3fac625fa",
+      "id": "5a4b8ba2-30be-489a-b6f4-d197fd80dabe",
       "name": "Parse JSON arguments3",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2280,
-        1220
+        1980,
+        680
       ]
     },
     {
       "parameters": {
         "jsCode": "console.log(\"Starting the script...\");\n\n// Initialize empty arrays for messages from each stream\nlet stream1Messages = [];\nlet stream2Messages = [];\n\n// Try to get messages from stream1 if they exist\nconst stream1Output = $('Strip HTML').first().json;\nconsole.log(\"Stream1 Output: \", stream1Output);\n\nif (stream1Output && stream1Output.hasOwnProperty('messages')) {\n    console.log(\"Found messages in Stream1\");\n    stream1Messages = stream1Output.messages;\n} else {\n    console.log(\"No messages found in Stream1 or Stream1 is not defined\");\n}\n\ntry {\n    // Try to get messages from stream2 if they exist\n    const stream2Output = $('Function Response').first().json;\n    console.log(\"Stream2 Output: \", stream2Output);\n\n    if (stream2Output && stream2Output.hasOwnProperty('messages')) {\n        console.log(\"Found messages in Stream2\");\n        stream2Messages = stream2Output.messages;\n    } else {\n        console.log(\"No messages found in Stream2 or Stream2 is not defined\");\n    }\n} catch (error) {\n    // Handle error (e.g., IF node not executed)\n    console.log(\"Error: IF node has not been executed or no data is available.\");\n}\n\n// Combine the messages only if stream2Messages exists and is not empty\nif (stream2Messages.length > 0) {\n    console.log(\"Combining messages from Stream1 and Stream2\");\n    stream1Messages = [...stream1Messages, ...stream2Messages];\n} else {\n    console.log(\"No messages to combine from Stream2, using Stream1 messages only\");\n}\n\nconsole.log(\"Final combined messages: \", stream1Messages);\n\nreturn { json: { messages: stream1Messages } };\n"
       },
-      "id": "9ffaa0cf-bbe4-4d2c-9af6-83a5c3ce434c",
+      "id": "463bf0db-6cd9-4650-bbde-38ce2388bca0",
       "name": "Merge Function Resp",
       "type": "n8n-nodes-base.code",
       "typeVersion": 1,
       "position": [
-        -1300,
-        1360
+        -1600,
+        820
       ],
       "executeOnce": true
     },
@@ -223,13 +223,13 @@
       "parameters": {
         "jsCode": "return $input.first().json.toolCalls.map(toolCall => {\n  return {\n    json: toolCall,\n  }\n})"
       },
-      "id": "dcb3ecd3-4100-469a-a3dd-ac3afbf2839c",
+      "id": "5c60571e-0f06-4331-b86f-92d6732a081f",
       "name": "Itemize",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        540,
-        1220
+        240,
+        680
       ]
     },
     {
@@ -238,12 +238,12 @@
         "height": 298.45126420731236,
         "width": 816.7012663065507
       },
-      "id": "7ef308d2-93db-4160-94d3-319e75e459c8",
+      "id": "a275447d-5e31-4ad3-8551-f73bfbc5cda7",
       "name": "Sticky Note25",
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -860,
-        1260
+        -1160,
+        720
       ],
       "typeVersion": 1
     },
@@ -261,26 +261,26 @@
         },
         "options": {}
       },
-      "id": "ee797c46-3ac6-4b36-91a5-dbe925f376d6",
+      "id": "29dd5159-ff5e-4dc6-ae20-1b6bc745540d",
       "name": "Tools Set",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.3,
       "position": [
-        340,
-        1220
+        40,
+        680
       ]
     },
     {
       "parameters": {
         "jsCode": "const tools = [\n  {\n  \"type\": \"function\",\n  \"function\": {\n        \"name\": \"verify_order\",\n        \"description\": \"Verifies that the order in the system matches the details given by the customer.\",\n        \"parameters\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"order_id\": {\n                    \"type\": \"string\",\n                    \"description\": \"The customer's order ID.\"\n                },\n            },\n            \"required\": [\n                \"order_id\"\n            ]\n        }\n    },\n  },\n  {\n    \"type\": \"function\",\n    \"function\": {\n          \"name\": \"review_photo\",\n          \"description\": \"Reviews the customer's photo for defects.\",\n          \"parameters\": {\n              \"type\": \"object\",\n              \"properties\": {\n                  \"photo_link\": {\n                      \"type\": \"string\",\n                      \"description\": \"URL of the customer's uploaded photo.\"\n                  },\n              },\n              \"required\": [\n                  \"photo_link\"\n              ]\n          }\n    },\n  },\n  {\n    \"type\": \"function\",\n    \"function\": {\n          \"name\": \"verify_warranty\",\n          \"description\": \"Checks to see if the product is still under warranty.\",\n          \"parameters\": {\n              \"type\": \"object\",\n              \"properties\": {\n                  \"order_id\": {\n                      \"type\": \"string\",\n                      \"description\": \"The customer's order ID.\"\n                  },\n              },\n              \"required\": [\n                  \"order_id\"\n              ]\n          }\n    },\n  },\n  {\n    \"type\": \"function\",\n    \"function\": {\n        \"name\": \"email_customer\",\n        \"description\": \"Sends a reply email to the customer.\",\n        \"parameters\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"message\": {\n                    \"type\": \"string\",\n                    \"description\": \"Message to the customer.\"\n                },\n            },\n            \"required\": [\n                \"message\"\n            ]\n        }\n    }\n  }\n];\n\nreturn {tools}; "
       },
-      "id": "2bc05411-d8c8-4a0b-9387-e300e235840d",
+      "id": "709aa99a-4a17-4592-877a-6d1c09827930",
       "name": "Tools",
       "type": "n8n-nodes-base.code",
       "typeVersion": 1,
       "position": [
-        -800,
-        1360
+        -1100,
+        820
       ]
     },
     {
@@ -297,13 +297,13 @@
         "include": "none",
         "options": {}
       },
-      "id": "be28a499-8cc7-4efd-8d96-9e07693e364b",
+      "id": "d1263a17-12b6-412b-bcef-95db23cd2156",
       "name": "Conversation",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3,
       "position": [
-        -1100,
-        1362
+        -1400,
+        822
       ],
       "executeOnce": true
     },
@@ -318,13 +318,13 @@
           }
         }
       },
-      "id": "e5617e63-c2b2-403d-8ba5-290077acb38e",
+      "id": "d0f5a716-6bf6-440a-9d03-e9621f2f609a",
       "name": "Download image",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        1420,
-        1220
+        1120,
+        680
       ]
     },
     {
@@ -361,62 +361,62 @@
         },
         "options": {}
       },
-      "id": "2b3324e5-4ed1-4742-bb46-d3986fda88eb",
+      "id": "9686c9d6-2f01-4d6a-a348-bf4b0a6c9943",
       "name": "If wants to call Tools",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        60,
-        1360
+        -240,
+        820
       ]
     },
     {
       "parameters": {
         "jsCode": "return {response: 'success'}"
       },
-      "id": "9eecd5cc-89d9-4f3b-86de-93cf2dd0cc58",
+      "id": "7ca2a860-720d-406d-b052-3898a66ab16c",
       "name": "Return success",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1960,
-        2200
+        1660,
+        1660
       ]
     },
     {
       "parameters": {},
-      "id": "21bc64b2-d93a-42c0-9708-eabc98416463",
+      "id": "1dae6ba1-0c9d-4c6c-84b1-d5066933bb0d",
       "name": "No Operation, do nothing6",
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
       "position": [
-        340,
-        1500
+        40,
+        960
       ]
     },
     {
       "parameters": {},
-      "id": "047d7098-b5a7-4794-9f77-32afb55f7cac",
+      "id": "5c66813b-781f-4409-afa5-7f73e7ab9649",
       "name": "Merge1",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
       "position": [
-        3760,
-        2060
+        2340,
+        1500
       ]
     },
     {
       "parameters": {
         "content": "## Call Tools",
-        "height": 1616.4044572235323,
-        "width": 3542.1916229300136
+        "height": 1601.4044572235323,
+        "width": 1762.1916229300136
       },
-      "id": "59b10b8f-bc01-459c-b66c-4b9cf3e3726c",
+      "id": "6492621b-5e2b-4c91-9be1-b0ea019b4184",
       "name": "Sticky Note2",
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        760,
-        1000
+        460,
+        460
       ],
       "typeVersion": 1
     },
@@ -424,39 +424,39 @@
       "parameters": {
         "jsCode": "const messages = [];\n\n// Push original message\nconst message = $('[OpenAI] Tools').item.json.choices[0].message;\nmessages.push({role: message.role, content: message.content, tool_calls: message.tool_calls});\n\n// Push tool responses\nconst inputs = $input.all();\nconst toolCalls = $('Tools Set').item.json.toolCalls;\n\nif (inputs.length !== toolCalls.length) {\n    return {error: \"Inputs and Tool Calls length mismatch\"};\n}\n\ninputs.forEach((input, index) => {\n    const tool_call_id = toolCalls[index].id;\n    const role = 'tool'; // Assuming this is constant\n    const name = toolCalls[index].function.name;\n\n    const content = JSON.stringify(input.json);\n    messages.push({tool_call_id, role, name, content});\n});\n\nreturn {messages: messages};\n"
       },
-      "id": "88d9b7d9-6a39-4554-b73c-54c6c33628af",
+      "id": "749aa91f-45a8-455c-a18e-7fd9f03e467c",
       "name": "Function Response",
       "type": "n8n-nodes-base.code",
       "typeVersion": 1,
       "position": [
-        4080,
-        2340
+        2660,
+        1780
       ]
     },
     {
       "parameters": {
         "jsCode": "const input = {\n    messages: $('Conversation').first().json.messages.slice()\n}\n\nlet content = `Act as a Customer Support Rep. The customer has sent you their order ID, \nshipping address, and a photo of a defective product they recently purchased. \nYour goal is to walk through this entire process with the customer.\n\nSteps to accomplish your task:\n1. Verify that the photo shows defects (function: review_photo)\n2. Verify that the product is still under warranty. Products are under warranty if purchased within the past 365 days (function: verify_warranty)\n3. Decide if a replacement should be shipped to the customer - replacements are offered if a valid order ID is given, it's covered under warranty, and the photo review shows damage the product\n4. Email your decision to the customer (function: email_customer)\n5. Terminate\n\nRules of engagement:\n- Stick to the procedure and don't invent your own steps\n- Stick to your role, and politely decline off-topic questions\n- Do not output messages, only call functions`;\n\nlet systemMsg = {\n  \"role\": \"system\",\n  \"content\": `${content}`\n};\n\ninput.messages.splice(0, 0, systemMsg); // second from top\n\nreturn input; // returns the updated array"
       },
-      "id": "65aa9570-f0c5-4c71-ba0e-422a933c22e0",
+      "id": "af99ec77-d97d-43b2-afc9-b87f7a08a7fb",
       "name": "System Message",
       "type": "n8n-nodes-base.code",
       "typeVersion": 1,
       "position": [
-        -600,
-        1360
+        -900,
+        820
       ]
     },
     {
       "parameters": {
         "jsCode": "const messages = [];\nconst response = $input.first().json.choices[0].message;\n\nmessages.push(response);\nreturn {messages: messages};"
       },
-      "id": "e1aac1b3-fced-4f0e-9c9d-b1c9d42d89c5",
+      "id": "1035a2f4-3a1d-4cf9-a8b1-dfd649dddf36",
       "name": "Function Resp (w/ History)",
       "type": "n8n-nodes-base.code",
       "typeVersion": 1,
       "position": [
-        -180,
-        1360
+        -480,
+        820
       ]
     },
     {
@@ -464,13 +464,13 @@
         "mode": "runOnceForEachItem",
         "jsCode": "function assembleReturnObject(arguments) {\n  // Step 1: Clean and parse input\n  const argumentsCleaned = arguments.replace(/(\\r\\n|\\n|\\r)/gm, \"\").replace(/\\s+/g, \" \");\n  const parsedArguments = JSON.parse(argumentsCleaned);\n\n  // Step 2: Dynamically create the return object based on keys in parsedArguments\n  const returnObject = Object.keys(parsedArguments).reduce((acc, key) => {\n    // Use the key to dynamically set the value in the accumulated object\n    acc[key] = parsedArguments[key];\n    return acc;\n  }, {});\n\n  // Step 3: Assemble into the required return format\n  return returnObject;\n}\n\n// Example usage:\nconst name = $('Itemize').item.json.function.name;\nconst arguments = $('Itemize').item.json.function.arguments;\nconst result = {\n  name: name,\n  arguments: assembleReturnObject(arguments)\n};\nreturn result;"
       },
-      "id": "20b27e1f-8a9e-45d8-8ff5-bdd5088c623e",
+      "id": "7d6c5410-f03b-40d0-ad97-d1ee0c2f26b9",
       "name": "Parse JSON arguments",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        820,
-        1220
+        520,
+        680
       ]
     },
     {
@@ -494,10 +494,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 1,
       "position": [
-        1620,
-        1700
+        1320,
+        1160
       ],
-      "id": "5a8f9dca-c921-4cc6-9809-ff0261e2e29d",
+      "id": "250cf84e-39e5-4734-9f9f-c34c44a92ea0",
       "onError": "continueErrorOutput"
     },
     {
@@ -514,26 +514,26 @@
         },
         "options": {}
       },
-      "id": "6fd12822-b99b-4692-8854-d2fabda4fba3",
+      "id": "d68fee0d-6f9f-441e-afb4-4cdd5dd2fe86",
       "name": "Order Set",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.3,
       "position": [
-        1840,
-        1580
+        1540,
+        1040
       ]
     },
     {
       "parameters": {
         "jsCode": "function daysBetween(dateString) {\n  const specifiedDate = new Date(dateString);\n  const today = new Date();\n\n  // Set the time of both dates to 00:00:00 to calculate the difference in days accurately\n  specifiedDate.setHours(0, 0, 0, 0);\n  today.setHours(0, 0, 0, 0);\n\n  const millisecondsPerDay = 24 * 60 * 60 * 1000; // Number of milliseconds in a day\n  const differenceInMilliseconds = today - specifiedDate;\n\n  const differenceInDays = differenceInMilliseconds / millisecondsPerDay;\n\n  return Math.floor(differenceInDays); // Returns the integer part of the difference\n}\n\n// Example usage:\nconst days = daysBetween($input.first().json.purchaseDate);\nconsole.log(days);\nreturn [{purcased_days_ago: days}];\n"
       },
-      "id": "85ffe8ef-3751-43fa-ae6e-7c3d87243982",
+      "id": "5de0cf51-e94a-4453-b298-411b9ab115ce",
       "name": "Calculate Order Age",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2060,
-        1620
+        1760,
+        1080
       ]
     },
     {
@@ -543,35 +543,35 @@
         "width": 888.9768815487378,
         "color": 5
       },
-      "id": "1837f801-b1d8-4ecf-b8e6-9aef32bf417b",
+      "id": "2db72129-edd8-4008-87f9-febf93e37f86",
       "name": "Sticky Note3",
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        1320,
-        1520
+        1020,
+        980
       ],
       "typeVersion": 1
     },
     {
       "parameters": {},
-      "id": "f3a1345c-007d-4251-8a16-706fa79f7882",
+      "id": "35e477b0-3bc3-4e36-a96f-31b21da4b002",
       "name": "No Operation, do nothing2",
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
       "position": [
-        1840,
-        1820
+        1540,
+        1280
       ]
     },
     {
       "parameters": {},
-      "id": "f09393b2-bb2b-4789-aeb1-4506fff1c315",
+      "id": "6dd3fdea-3673-4009-80e3-d659e4d776bc",
       "name": "Merge2",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
       "position": [
-        3900,
-        2220
+        2480,
+        1660
       ]
     },
     {
@@ -587,20 +587,20 @@
             {
               "id": "bc779325-5a2b-45ce-b7df-b957e5a8aab6",
               "name": "endpoint",
-              "value": "={{ `/orders/v0/orders/TEST_CASE_200` }}",
+              "value": "={{ `/orders` }}",
               "type": "string"
             }
           ]
         },
         "options": {}
       },
-      "id": "33425373-a4f1-4050-b3e7-0497c13ac85d",
+      "id": "790a2420-2fca-404d-bf46-e2367a132099",
       "name": "REST Set",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.3,
       "position": [
-        1420,
-        1700
+        1120,
+        1160
       ]
     },
     {
@@ -623,13 +623,13 @@
         },
         "options": {}
       },
-      "id": "509cd52e-a9e4-4bea-aebf-ec95ffa4f7fc",
+      "id": "2839e0fa-0a19-4bdd-88ac-4d716bafb42b",
       "name": "Configure Set",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.3,
       "position": [
-        -2000,
-        1358
+        -2300,
+        818
       ]
     },
     {
@@ -649,13 +649,13 @@
         },
         "options": {}
       },
-      "id": "17ff1920-cb6c-4931-9d15-26df82e03f16",
+      "id": "8f18298c-0c0e-475c-9a99-1f949f094816",
       "name": "[MS] Get Messages",
       "type": "n8n-nodes-base.microsoftOutlook",
       "typeVersion": 2,
       "position": [
-        -1780,
-        1360
+        -2080,
+        820
       ],
       "credentials": {
         "microsoftOutlookOAuth2Api": {
@@ -668,13 +668,13 @@
       "parameters": {
         "jsCode": "// Regular expression to match HTML tags\nvar allhtm = /(<([^>]+)>)/ig;\n// Regular expression specifically to match <br> and <br/> tags\nvar brTag = /<br\\s*\\/?>/ig;\n\n// Loop over input items and replace <br> tags with newlines, then remove other HTML tags\nfor (const item of $input.all()) {\n  if (item.json && item.json.body && item.json.body.content) {\n    // First replace <br> tags with newlines\n    var contentWithNewLines = item.json.body.content.replace(brTag, '\\n');\n    // Then remove all other HTML tags\n    item.json.messages = [{role: \"user\", content: contentWithNewLines.replace(allhtm, '').trim()}];\n  } else {\n    // Handle cases where the expected structure is missing\n    console.error('Invalid item structure:', item);\n  }\n}\n\nreturn $input.all();\n"
       },
-      "id": "aeac67d3-e49d-4451-bc52-765f0b365d42",
+      "id": "e4d659d0-50bb-45f5-be55-edb14ba3742f",
       "name": "Strip HTML",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1540,
-        1360
+        -1840,
+        820
       ]
     },
     {
@@ -729,13 +729,13 @@
           "timeout": 60000
         }
       },
-      "id": "8d7af876-a0d1-48c2-b010-1f4eeac57baf",
+      "id": "9c9d026e-ee8b-4b75-a4ee-0d768752285f",
       "name": "[OpenAI] Tools",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        -380,
-        1360
+        -680,
+        820
       ],
       "credentials": {
         "openAiApi": {
@@ -824,13 +824,13 @@
         },
         "options": {}
       },
-      "id": "a80bed18-0c23-400e-b572-dd67fdbf47e4",
+      "id": "245b2707-836e-4dd8-aed9-f3dbe47ea047",
       "name": "Route Function",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
       "position": [
-        1020,
-        1220
+        720,
+        680
       ]
     }
   ],
