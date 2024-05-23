@@ -664,7 +664,7 @@
             },
             {
               "name": "model",
-              "value": "gpt-4"
+              "value": "gpt-4o"
             },
             {
               "name": "temperature",

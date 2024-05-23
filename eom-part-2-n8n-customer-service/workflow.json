@@ -116,7 +116,7 @@
             },
             {
               "name": "model",
-              "value": "=gpt-4-turbo"
+              "value": "=gpt-4o"
             },
             {
               "name": "max_tokens",
@@ -701,7 +701,7 @@
             },
             {
               "name": "model",
-              "value": "=gpt-4-turbo"
+              "value": "=gpt-4o"
             },
             {
               "name": "temperature",
